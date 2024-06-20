@@ -32,7 +32,8 @@ class DeleteBookFrame(tk.Frame):
         # 입력값이 숫자인지 확인
         if index.isdigit():
             index = int(index)
-            self.delete_book_callback(index)
+            self.delete_book_callback(index-1) 
+            #인덱스는 0부터 시작하므로 -1 해줌
 
             # 입력 필드 초기화
             self.index_entry.delete(0, tk.END)
