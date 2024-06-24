@@ -45,7 +45,7 @@ class LoginFrame(tk.Frame):
                 self.update_user_callback(username)
                 return
         #login에 실패한다면
-        messagebox.showerror("Login Failed", "Invalid username or password")
+        messagebox.showerror("Login Failed", "username 또는 password가 틀렸습니다")
 
 
         

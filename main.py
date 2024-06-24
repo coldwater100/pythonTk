@@ -6,6 +6,8 @@ from list_book_frame_module import ListBookFrame
 from add_book_frame_module import AddBookFrame
 from delete_book_frame_module import DeleteBookFrame
 from tkinter import messagebox
+import pickle
+import os
 
 ###################################################
 # 전체 프로그램의 main part 입니다
@@ -37,13 +39,35 @@ def update_username(new_username):
     login_state = True
     messagebox.showinfo("알림", "성공적으로 로그인 되었습니다")
 
-# program 시작시에 local file에서 book을 읽어 온다
-def load_books() :
+def load_idpwd() :
     pass
 
-# 현재의 book_list를 file로 저장한다
-def save_book_list() :
+def save_idpwd() :
     pass
+
+def add_user() :
+    pass
+
+def delete_user() :
+    pass
+
+def suggest_book() :
+    pass
+
+# program 시작시에 local file에서 book을 읽어 온다
+def load_books() :
+    global book_list
+    if os.path.exists("book_name_list.bn"):
+        with open("book_name_list.bn", "rb") as file:
+            book_list = pickle.load(file)
+    else:
+        book_list=[("Python Programing", "team 1", 342 ), ("C Programing", "chance", 232 )] #default
+
+# 현재의 book_list를 file로 저장한다
+def save_books() :
+    global book_list
+    with open("book_name_list.bn", "wb") as file:
+        pickle.dump(book_list, file)    
 
 # 새로운 책을 현재 book list에 추가한다 AddBookFrame의 변수로 이 함수를 넘겨 준다, 즉 AddBookFrame에서 실행 된다.
 def add_book(new_book) :
@@ -52,6 +76,7 @@ def add_book(new_book) :
     #list_books_frame은 초기화 되고 나면 보이지는 않지만 생성되어 있는 상태이므로 list_books_frame instance의
     #update_book_list를 이용 list_books_frame의 내용을 update 해 준다
     list_books_frame.update_book_list(book_list)
+    save_books()
     messagebox.showinfo("알림", "새 책이 추가 되었어요")
 
 # 하나의 책을 삭제 한다. DeleteBookFrame의 변수로 이 함수를 넘겨 준다, 즉 DeleteBookFrame에서 실행된다.
@@ -62,6 +87,7 @@ def delete_book(idx):
         # index가 유효하면
         del book_list[idx]
         list_books_frame.update_book_list(book_list)
+        save_books()
         messagebox.showinfo("알림", "지정한 책이 삭제 되었어요")
     else:
         # index가 유효하지 않으면 오류 메시지
@@ -77,8 +103,7 @@ username = "guest"
 login_state = False
 
 # 현재 book-list를 가지는 변수, book_title, author, pages
-book_list = [("Python Programing", "team 1", 342 ), ("C Programing", "chance", 232 )]
-# 나중에는 load_books로 대체
+load_books()
 
 # 현재 로그인 사용자를 표시하는 frame
 username_frame = tk.Frame(win, height=30, bg="lightgray")
@@ -114,4 +139,5 @@ menu_frame.place(rely=0.05, relwidth=0.2, relheight=0.95)
 
 # 윈도우 시작
 win.mainloop()
+
 
