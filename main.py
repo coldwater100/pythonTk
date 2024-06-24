@@ -5,6 +5,7 @@ from menu_frame_module import MenuFrame
 from list_book_frame_module import ListBookFrame
 from add_book_frame_module import AddBookFrame
 from delete_book_frame_module import DeleteBookFrame
+# from mypage_frame_module import MypageFrame
 from tkinter import messagebox
 import pickle
 import os
@@ -39,18 +40,6 @@ def update_username(new_username):
     login_state = True
     messagebox.showinfo("알림", "성공적으로 로그인 되었습니다")
 
-def load_idpwd() :
-    pass
-
-def save_idpwd() :
-    pass
-
-def add_user() :
-    pass
-
-def delete_user() :
-    pass
-
 def suggest_book() :
     pass
 
@@ -61,7 +50,7 @@ def load_books() :
         with open("book_name_list.bn", "rb") as file:
             book_list = pickle.load(file)
     else:
-        book_list=[("Python Programing", "team 1", 342 ), ("C Programing", "chance", 232 )] #default
+        book_list=[("Python Programing", "team 1", 342, "self_help_book", "cover5.jpeg" ), ("apple", "chance", 232, "Novel","cover3.jpeg" )] #default
 
 # 현재의 book_list를 file로 저장한다
 def save_books() :
@@ -101,6 +90,7 @@ win.geometry("800x600")
 # login user의 이름을 위한 변수
 username = "guest"
 login_state = False
+
 
 # 현재 book-list를 가지는 변수, book_title, author, pages
 load_books()

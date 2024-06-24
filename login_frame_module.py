@@ -138,7 +138,7 @@ class LoginFrame(tk.Frame):
                 lines = file.readlines()
                 return [tuple(line.strip().split(",")) for line in lines]
         else : 
-            return [("user1", "1111"), ("user2", "2222"), ("user3", "3333")]
+            return [("user1", "1111"), ("user2", "2222"), ("user3", "3333")] #default 회원정보들
         
 
     def save_user_data(self):
