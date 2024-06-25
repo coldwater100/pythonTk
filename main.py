@@ -56,8 +56,8 @@ def load_books():
         with open("book_name_list.bn", "rb") as file:
             book_list = pickle.load(file)
     else:
-        book_list = [("Python Programing", "team 1", 342, BookDatas.genres[0], "cover5.jpeg"), 
-                     ("apple", "chance", 232, BookDatas.genres[2], "cover3.jpeg")]  # default
+        book_list = [("Python Programing", "team 1", 342, BookDatas.genres[4], BookDatas.images[4]), 
+                     ("apple", "chance", 232, BookDatas.genres[2], BookDatas.images[2])]  # default
 
 # 현재의 book_list를 file로 저장한다
 def save_books():
