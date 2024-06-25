@@ -40,8 +40,8 @@ class AddBookFrame(tk.Frame):
         pages_label = tk.Label(self, text="Genres:")
         pages_label.grid(row=3, column=0, padx=10, pady=5, sticky="e")
         self.genre_combobox = ttk.Combobox(self)       # 콤보박스 생성
-        self.genre_combobox.config(height=5,values=BookDatas.genres)           
-        self.genre_combobox.set("Essay")           # 맨 처음 나타낼 값 설정
+        self.genre_combobox.config(height=5,values=BookDatas.genres,state="readonly")           
+        self.genre_combobox.current(0)          # 맨 처음 나타낼 값 설정
         self.genre_combobox.grid(row=3, column=1, padx=10, pady=5, sticky="we")                     # 콤보 박스 배치 
 
         # Button - add book

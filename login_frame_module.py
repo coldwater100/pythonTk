@@ -1,8 +1,10 @@
 import tkinter as tk
 from tkinter import messagebox
 import os
+import pickle
 from book_datas import BookDatas
 from tkinter import ttk
+from user_data_manage import UserDataManage
 
 class LoginFrame(tk.Frame):
     def __init__(self, master, update_username, **kwargs):
@@ -45,8 +47,8 @@ class LoginFrame(tk.Frame):
 
         self.label_genres = tk.Label(self, text="Genres:", font=("Arial", 12), bg="#f0f0f0")
         self.genre_combobox = ttk.Combobox(self)       # 콤보박스 생성
-        self.genre_combobox.config(height=5,values=BookDatas.genres)           
-        self.genre_combobox.set("Essay")           # 맨 처음 나타낼 값 설정 
+        self.genre_combobox.config(height=5,values=BookDatas.genres,state="readonly")           
+        self.genre_combobox.set(BookDatas.genres[0])           # 맨 처음 나타낼 값 설정 
 
         self.button_register_user = tk.Button(self, text="Register", font=("Arial", 12, "bold"), bg="#4CAF50", fg="white", command=self.register_user)
         
@@ -56,7 +58,7 @@ class LoginFrame(tk.Frame):
         self.entry_password.bind('<Return>', self.login_event)
 
         # user의 id 및 password list
-        self.idpwd = self.load_user_data()
+        self.idpwd = UserDataManage.load_user_data()
 
     def login_event(self, event):
         self.login()
@@ -65,11 +67,12 @@ class LoginFrame(tk.Frame):
         username = self.entry_username.get()
         password = self.entry_password.get()
         
-        for user, pwd in self.idpwd:
-            if username == user and password == pwd:
+        for user_data in self.idpwd:
+            if username == user_data[0] and password == user_data[1]:
                 self.update_user_callback(username)
                 self.entry_username.delete(0, tk.END)
                 self.entry_password.delete(0, tk.END)
+                UserDataManage.now_user=user_data
                 return
 
         messagebox.showerror("Login Failed", "Invalid username or password")
@@ -91,6 +94,7 @@ class LoginFrame(tk.Frame):
         self.label_new_password.pack(pady=5)
         self.entry_new_password.pack(pady=5, ipady=5, ipadx=5)
         self.label_genres.pack(pady=5)
+        self.genre_combobox.config(state="readonly")           
         self.genre_combobox.pack(pady=5, ipady=5, ipadx=5)
         self.label_pages.pack(pady=5)
         self.entry_pages.pack(pady=5, ipady=5, ipadx=5)
@@ -130,6 +134,7 @@ class LoginFrame(tk.Frame):
         self.entry_password.delete(0, tk.END)
         self.entry_new_username.delete(0, tk.END)
         self.entry_new_password.delete(0, tk.END)
+        self.entry_pages.delete(0, tk.END)
 
     def register_event(self, event):
         self.register_user()
@@ -144,29 +149,16 @@ class LoginFrame(tk.Frame):
             messagebox.showerror("Error", "Username and Password cannot be empty")
             return
 
-        for user, pwd in self.idpwd:
-            if new_username == user:
+        for user_data in self.idpwd:
+            if new_username == user_data[0]:
                 messagebox.showerror("Error", "Username already exists")
                 return
 
-        self.idpwd.append((new_username, new_password))
-        self.save_user_data()
+        self.idpwd.append((new_username, new_password, new_like_genre, new_like_length))
+        UserDataManage.save_user_data(self.idpwd)
         messagebox.showinfo("Success", "User registered successfully")
         self.show_login_form()
 
-    def load_user_data(self):
-        if os.path.exists("user_data.txt"):
-            with open("user_data.txt", "r") as file:
-                lines = file.readlines()
-                return [tuple(line.strip().split(",")) for line in lines]
-        else : 
-            return [("user1", "1111"), ("user2", "2222"), ("user3", "3333")] #default 회원정보들
-        
-
-    def save_user_data(self):
-        with open("user_data.txt", "w") as file:
-            for user, pwd in self.idpwd:
-                file.write(f"{user},{pwd}\n")
 
 
 

@@ -5,10 +5,12 @@ from menu_frame_module import MenuFrame
 from list_book_frame_module import ListBookFrame
 from add_book_frame_module import AddBookFrame
 from delete_book_frame_module import DeleteBookFrame
-# from mypage_frame_module import MyPageFrame
+from mypage_frame_module import MyPageFrame
 from tkinter import messagebox
 import pickle
 import os
+from user_data_manage import UserDataManage
+from book_datas import BookDatas
 
 ###################################################
 # 전체 프로그램의 main part 입니다
@@ -20,8 +22,8 @@ import os
 def view_other_frame(frame_to_show):
     global login_state
     # 필요시 로그인 상태 체크
-    if frame_to_show in [list_books_frame, add_book_frame, delete_book_frame] :
-        if not login_state :
+    if frame_to_show in [list_books_frame, add_book_frame, delete_book_frame, mypage_frame]:
+        if not login_state:
             messagebox.showerror("알림", "로그인 후 이용가능합니다")
             return
     # 우측 프레임의 모든 프레임을 안보이게 하고     
@@ -39,31 +41,34 @@ def update_username(new_username):
     label_user.config(text=f"Username: {username}")
     login_state = True
     messagebox.showinfo("알림", "성공적으로 로그인 되었습니다")
+    mypage_frame.update_user_data(next((user for user in UserDataManage.load_user_data() if user[0] == username), None))
+    
 
-def suggest_book() :
+def suggest_book():
     pass
 
 # program 시작시에 local file에서 book을 읽어 온다
-def load_books() :
+def load_books():
     global book_list
     if os.path.exists("book_name_list.bn"):
         with open("book_name_list.bn", "rb") as file:
             book_list = pickle.load(file)
     else:
-        book_list=[("Python Programing", "team 1", 342, "self_help_book", "cover5.jpeg" ), ("apple", "chance", 232, "Novel","cover3.jpeg" )] #default
+        book_list = [("Python Programing", "team 1", 342, BookDatas.genres[0], "cover5.jpeg"), 
+                     ("apple", "chance", 232, BookDatas.genres[2], "cover3.jpeg")]  # default
 
 # 현재의 book_list를 file로 저장한다
-def save_books() :
+def save_books():
     global book_list
     with open("book_name_list.bn", "wb") as file:
         pickle.dump(book_list, file)    
 
 # 새로운 책을 현재 book list에 추가한다 AddBookFrame의 변수로 이 함수를 넘겨 준다, 즉 AddBookFrame에서 실행 된다.
-def add_book(new_book) :
+def add_book(new_book):
     global book_list
     book_list.append(new_book)
-    #list_books_frame은 초기화 되고 나면 보이지는 않지만 생성되어 있는 상태이므로 list_books_frame instance의
-    #update_book_list를 이용 list_books_frame의 내용을 update 해 준다
+    # list_books_frame은 초기화 되고 나면 보이지는 않지만 생성되어 있는 상태이므로 list_books_frame instance의
+    # update_book_list를 이용 list_books_frame의 내용을 update 해 준다
     list_books_frame.update_book_list(book_list)
     save_books()
     messagebox.showinfo("알림", "새 책이 추가 되었어요")
@@ -90,7 +95,6 @@ win.geometry("800x600")
 username = "guest"
 login_state = False
 
-
 # 현재 book-list를 가지는 변수, book_title, author, pages
 load_books()
 
@@ -103,25 +107,25 @@ label_user.pack(side="left", padx=10)
 # 필요한 frame 들을 생성
 home_frame = HomeFrame(win, relief="solid", bd=2)
 # 우측 패널을 home_frame으로 초기화 한다.
-home_frame.place(relx=0.2, rely=0.05, relwidth=0.8, relheight=0.95)  
+home_frame.place(relx=0.2, rely=0.05, relwidth=0.8, relheight=0.95)
 
 login_frame = LoginFrame(win, update_username, relief="solid", bd=2)
 list_books_frame = ListBookFrame(win, book_list, relief="solid", bd=2)
-add_book_frame = AddBookFrame(win, add_book,  relief="solid", bd=2)
-delete_book_frame = DeleteBookFrame(win, delete_book,  relief="solid", bd=2)
-# mypage_frame = MyPageFrame(win, username, relief="solid", bd=2)
+add_book_frame = AddBookFrame(win, add_book, relief="solid", bd=2)
+delete_book_frame = DeleteBookFrame(win, delete_book, relief="solid", bd=2)
+mypage_frame = MyPageFrame(win, relief="solid", bd=2)
 
 # 우측 에 필요한 frame들의 list
-right_frames = [home_frame, login_frame, list_books_frame, add_book_frame, delete_book_frame]
+right_frames = [home_frame, login_frame, list_books_frame, add_book_frame, delete_book_frame, mypage_frame]
 
 # MenuFrame(좌측) 생성에 변수로 들어갈 list.  "Button text" : frame name  의 구조 
 frame_list = {
     "Home": home_frame,
     "Login": login_frame,
-    # "MtPage" : mypage_frame,
-    "View Books" : list_books_frame,
-    "Add a Book" : add_book_frame,
-    "Delete a Book" : delete_book_frame
+    "My Page": mypage_frame,
+    "View Books": list_books_frame,
+    "Add a Book": add_book_frame,
+    "Delete a Book": delete_book_frame
 }
 
 # MenuFrame 생성
@@ -130,5 +134,4 @@ menu_frame.place(rely=0.05, relwidth=0.2, relheight=0.95)
 
 # 윈도우 시작
 win.mainloop()
-
 
