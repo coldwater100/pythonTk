@@ -37,12 +37,14 @@ def view_other_frame(frame_to_show):
 def update_username(new_username):
     global username
     global login_state
+    global login_button
     username = new_username
     label_user.config(text=f"Username: {username}")
     login_state = True
     messagebox.showinfo("알림", "성공적으로 로그인 되었습니다")
     mypage_frame.update_user_data(next((user for user in UserDataManage.load_user_data() if user[0] == username), None))
-    
+    login_button.config(bg="#D0FC5C",text="다른 계정으로 로그인")
+    view_other_frame(home_frame)
 
 def suggest_book():
     pass
@@ -102,26 +104,32 @@ load_books()
 username_frame = tk.Frame(win, height=30, bg="lightgray")
 username_frame.pack(fill="x")
 label_user = tk.Label(username_frame, text=f"Username: {username}")
-label_user.pack(side="left", padx=10)
+label_user.pack(side="left", padx=10, ipadx=20, ipady=5)
+
+login_frame = LoginFrame(win, update_username, relief="solid", bd=2)
+login_button = tk.Button(username_frame, text="login", command=lambda f=login_frame: view_other_frame(f) ,bg="#4CAF50")
+login_button.pack(side="right", padx=10, ipadx=20, ipady=5)
 
 # 필요한 frame 들을 생성
 home_frame = HomeFrame(win, relief="solid", bd=2)
 # 우측 패널을 home_frame으로 초기화 한다.
 home_frame.place(relx=0.2, rely=0.05, relwidth=0.8, relheight=0.95)
 
-login_frame = LoginFrame(win, update_username, relief="solid", bd=2)
+# login_frame = LoginFrame(win, update_username, relief="solid", bd=2)
 list_books_frame = ListBookFrame(win, book_list, relief="solid", bd=2)
 add_book_frame = AddBookFrame(win, add_book, relief="solid", bd=2)
 delete_book_frame = DeleteBookFrame(win, delete_book, relief="solid", bd=2)
 mypage_frame = MyPageFrame(win, relief="solid", bd=2)
 
 # 우측 에 필요한 frame들의 list
-right_frames = [home_frame, login_frame, list_books_frame, add_book_frame, delete_book_frame, mypage_frame]
+# right_frames = [home_frame, login_frame, list_books_frame, add_book_frame, delete_book_frame, mypage_frame]
+right_frames = [home_frame, list_books_frame, add_book_frame, delete_book_frame, mypage_frame]
+
 
 # MenuFrame(좌측) 생성에 변수로 들어갈 list.  "Button text" : frame name  의 구조 
 frame_list = {
     "Home": home_frame,
-    "Login": login_frame,
+    # "Login": login_frame,
     "My Page": mypage_frame,
     "View Books": list_books_frame,
     "Add a Book": add_book_frame,
