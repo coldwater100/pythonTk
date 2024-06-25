@@ -1,16 +1,14 @@
 import tkinter as tk
 from tkinter import messagebox
 from tkinter import ttk
-
+from book_datas import BookDatas
 ###################################################
 # 새로운 책을 book_list에 추가하는 Class
 # add_book_callback 함수(add_book in main.py)를 수정하고 싶으면 팀장에게 문의
 # 이 파일 외에 다른 파일의 내용은 절대 수정하지 말고, 수정 원하면 팀장에 문의
 ###################################################
 
-#장르와 이미지들
-genres = ["Essay", "Poem", "Novel", "Play","self_help_book"]
-images = ["cover1.jpeg","cover2.jpeg","cover3.jpeg","cover4.jpeg","cover5.jpeg"]
+
 
 class AddBookFrame(tk.Frame):
     def __init__(self, master, add_book_callback, **kwargs):
@@ -20,7 +18,6 @@ class AddBookFrame(tk.Frame):
         self.create_widgets()
 
     def create_widgets(self):
-        global genres
         # title 입력을 위한 label, entry
         title_label = tk.Label(self, text="Title:")
         title_label.grid(row=0, column=0, padx=10, pady=5, sticky="e")
@@ -43,7 +40,7 @@ class AddBookFrame(tk.Frame):
         pages_label = tk.Label(self, text="Genres:")
         pages_label.grid(row=3, column=0, padx=10, pady=5, sticky="e")
         self.genre_combobox = ttk.Combobox(self)       # 콤보박스 생성
-        self.genre_combobox.config(height=5,values=genres)           
+        self.genre_combobox.config(height=5,values=BookDatas.genres)           
         self.genre_combobox.set("Essay")           # 맨 처음 나타낼 값 설정
         self.genre_combobox.grid(row=3, column=1, padx=10, pady=5, sticky="we")                     # 콤보 박스 배치 
 
@@ -52,8 +49,6 @@ class AddBookFrame(tk.Frame):
         add_button.grid(row=4, columnspan=2, pady=10)
 
     def add_book(self):
-        global genres
-        global images
         # entry에서 각각의 value를 가져옴
         title = self.title_entry.get().strip()
         author = self.author_entry.get().strip()
@@ -64,7 +59,7 @@ class AddBookFrame(tk.Frame):
         if title and author and genre and pages.isdigit():
             # Convert pages to integer
             pages = int(pages)
-            img_src=images[genres.index(genre)] #장르에 할당된 기본이미지 이용
+            img_src= BookDatas.getImageByGenre(genre)#장르에 할당된 기본이미지 이용
             # book list에 새책(new_book)을 추가, main.py에서 넘어온 callback 함수를 이용 추가한다.
             new_book = (title, author, pages, genre, img_src)
             self.add_book_callback(new_book)

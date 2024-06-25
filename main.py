@@ -5,7 +5,7 @@ from menu_frame_module import MenuFrame
 from list_book_frame_module import ListBookFrame
 from add_book_frame_module import AddBookFrame
 from delete_book_frame_module import DeleteBookFrame
-# from mypage_frame_module import MypageFrame
+# from mypage_frame_module import MyPageFrame
 from tkinter import messagebox
 import pickle
 import os
@@ -82,7 +82,6 @@ def delete_book(idx):
         # index가 유효하지 않으면 오류 메시지
         tk.messagebox.showerror("오류", "유효한 인덱스를 입력하세요.")
 
-
 # 윈도우 생성 및 크기 지정
 win = tk.Tk()
 win.geometry("800x600")
@@ -110,6 +109,7 @@ login_frame = LoginFrame(win, update_username, relief="solid", bd=2)
 list_books_frame = ListBookFrame(win, book_list, relief="solid", bd=2)
 add_book_frame = AddBookFrame(win, add_book,  relief="solid", bd=2)
 delete_book_frame = DeleteBookFrame(win, delete_book,  relief="solid", bd=2)
+# mypage_frame = MyPageFrame(win, username, relief="solid", bd=2)
 
 # 우측 에 필요한 frame들의 list
 right_frames = [home_frame, login_frame, list_books_frame, add_book_frame, delete_book_frame]
@@ -118,6 +118,7 @@ right_frames = [home_frame, login_frame, list_books_frame, add_book_frame, delet
 frame_list = {
     "Home": home_frame,
     "Login": login_frame,
+    # "MtPage" : mypage_frame,
     "View Books" : list_books_frame,
     "Add a Book" : add_book_frame,
     "Delete a Book" : delete_book_frame
