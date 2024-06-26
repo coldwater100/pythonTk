@@ -19,25 +19,25 @@ class AddBookFrame(tk.Frame):
 
     def create_widgets(self):
         # title 입력을 위한 label, entry
-        title_label = tk.Label(self, text="Title:")
+        title_label = tk.Label(self, text="제목:")
         title_label.grid(row=0, column=0, padx=10, pady=5, sticky="e")
         self.title_entry = tk.Entry(self)
         self.title_entry.grid(row=0, column=1, padx=10, pady=5, sticky="we")
 
         # author 입력을 위한 label, entry
-        author_label = tk.Label(self, text="Author:")
+        author_label = tk.Label(self, text="작가:")
         author_label.grid(row=1, column=0, padx=10, pady=5, sticky="e")
         self.author_entry = tk.Entry(self)
         self.author_entry.grid(row=1, column=1, padx=10, pady=5, sticky="we")
 
         # pages 입력을 위한 label, entry
-        pages_label = tk.Label(self, text="Pages:")
+        pages_label = tk.Label(self, text="페이지수:")
         pages_label.grid(row=2, column=0, padx=10, pady=5, sticky="e")
         self.pages_entry = tk.Entry(self)
         self.pages_entry.grid(row=2, column=1, padx=10, pady=5, sticky="we")
 
         # 장르 입력을 위한 label, 콤보박스
-        pages_label = tk.Label(self, text="Genres:")
+        pages_label = tk.Label(self, text="장르:")
         pages_label.grid(row=3, column=0, padx=10, pady=5, sticky="e")
         self.genre_combobox = ttk.Combobox(self)       # 콤보박스 생성
         self.genre_combobox.config(height=5,values=BookDatas.genres,state="readonly")           
@@ -45,7 +45,7 @@ class AddBookFrame(tk.Frame):
         self.genre_combobox.grid(row=3, column=1, padx=10, pady=5, sticky="we")                     # 콤보 박스 배치 
 
         # Button - add book
-        add_button = tk.Button(self, text="Add Book", command=self.add_book)
+        add_button = tk.Button(self, text="책 추가", command=self.add_book)
         add_button.grid(row=4, columnspan=2, pady=10)
 
     def add_book(self):

@@ -58,7 +58,10 @@ def load_books():
             book_list = pickle.load(file)
     else:
         book_list = [("Python Programing", "team 1", 342, BookDatas.genres[4], BookDatas.images[4]), 
-                     ("apple", "chance", 232, BookDatas.genres[2], BookDatas.images[2])]  # default
+                     ("죄와 벌", "표도르 도스토옙스키", 232, BookDatas.genres[2], BookDatas.images[2]),
+                     ("C++ 기초", "c프로그래머", 132, BookDatas.genres[4], BookDatas.images[4]),
+                     ("서시", "윤동주", 34, BookDatas.genres[1], BookDatas.images[1]),
+                     ("나의 에세이", "홍길동", 155, BookDatas.genres[0], BookDatas.images[0])]  # default
 
 # 현재의 book_list를 file로 저장한다
 def save_books():
@@ -94,6 +97,7 @@ def delete_book(idx):
 
 def login_btn_main():
     global username
+    global login_state
     if username=="guest":
         view_other_frame(login_frame)
     else:
@@ -144,12 +148,12 @@ right_frames = [home_frame, list_books_frame, add_book_frame, delete_book_frame,
 
 # MenuFrame(좌측) 생성에 변수로 들어갈 list.  "Button text" : frame name  의 구조 
 frame_list = {
-    "Home": home_frame,
+    "홈": home_frame,
     # "Login": login_frame,
-    "My Page": mypage_frame,
-    "View Books": list_books_frame,
-    "Add a Book": add_book_frame,
-    "Delete a Book": delete_book_frame
+    "마이페이지": mypage_frame,
+    "책 보기": list_books_frame,
+    "책 추가": add_book_frame,
+    "책 삭제": delete_book_frame
 }
 
 # MenuFrame 생성

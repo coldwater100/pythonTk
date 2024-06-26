@@ -16,13 +16,13 @@ class DeleteBookFrame(tk.Frame):
 
     def create_widgets(self):
         # label, entry for book index
-        index_label = tk.Label(self, text="Book Index:")
+        index_label = tk.Label(self, text="책 번호:")
         index_label.grid(row=0, column=0, padx=10, pady=5, sticky="e")
         self.index_entry = tk.Entry(self)
         self.index_entry.grid(row=0, column=1, padx=10, pady=5, sticky="we")
 
         # Button - delete book
-        delete_button = tk.Button(self, text="Delete Book", command=self.delete_book)
+        delete_button = tk.Button(self, text="책 삭제", command=self.delete_book)
         delete_button.grid(row=1, columnspan=2, pady=10)
 
     def delete_book(self):

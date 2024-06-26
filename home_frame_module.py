@@ -2,7 +2,7 @@ import tkinter as tk
 from PIL import Image, ImageTk
 import pygame
 import os
-#class 정의
+
 class HomeFrame(tk.Frame):
     def __init__(self, master=None, **kwargs):
         super().__init__(master, **kwargs)
@@ -31,7 +31,11 @@ class HomeFrame(tk.Frame):
         self.create_transparent_box()
 
         # 음악 재생 기능
+        self.music_playing = False
         self.play_music()
+
+        # 소리 토글 스위치 설정
+        self.create_music_toggle()
 
     def create_transparent_box(self):
         # 반투명 박스 이미지 생성
@@ -56,9 +60,22 @@ class HomeFrame(tk.Frame):
         if os.path.exists(music_path):
             pygame.mixer.init()
             pygame.mixer.music.load(music_path)
+            pygame.mixer.music.set_volume(0.3)
             pygame.mixer.music.play(-1)  # -1은 무한 반복을 의미
+            self.music_playing = True
         else:
             print(f"Error: Music file '{music_path}' not found.")
 
+    def toggle_music(self):
+        if self.music_playing:
+            pygame.mixer.music.pause()
+        else:
+            pygame.mixer.music.unpause()
+        self.music_playing = not self.music_playing
+
+    def create_music_toggle(self):
+        self.music_toggle_var = tk.BooleanVar(value=True)  # 초기값을 True로 설정 (음악 재생 중)
+        self.music_toggle = tk.Checkbutton(self, text="음악 켜기/끄기", variable=self.music_toggle_var, command=self.toggle_music, font=("Arial", 12, "bold"))
+        self.music_toggle_window = self.canvas.create_window(self.width - 200, 20, window=self.music_toggle, anchor="ne")
 
 

@@ -67,19 +67,3 @@ class ListBookFrame(tk.Frame):
         details_label = tk.Label(details_window, text=f"Title: {title}\nAuthor: {author}\nPages: {pages}\nGenres: {genres}", font=("Helvetica", 12))
         details_label.pack(padx=10, pady=10)
 
-# Test code to demonstrate the ListBookFrame
-if __name__ == "__main__":
-    root = tk.Tk()
-    root.title("Book List")
-
-    # Sample book data (title, author, pages, genres, cover_path)
-    books = [
-        ("Book 1", "Author 1", 123, "Genre 1", "path/to/cover1.jpg"),
-        ("Book 2", "Author 2", 456, "Genre 2", "path/to/cover2.jpg"),
-        ("Book 3", "Author 3", 789, "Genre 3", "path/to/cover3.jpg")
-    ]
-
-    list_book_frame = ListBookFrame(root, books)
-    list_book_frame.pack(fill=tk.BOTH, expand=True)
-
-    root.mainloop()
