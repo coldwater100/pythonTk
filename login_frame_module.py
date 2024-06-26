@@ -103,7 +103,9 @@ class LoginFrame(tk.Frame):
 
         # 엔터 키 이벤트 바인딩
         self.entry_new_password.bind('<Return>', self.register_event)
+        self.entry_pages.bind('<Return>', self.register_event)
 
+        
     def show_login_form(self):
         self.clear_form()
         self.label_title.config(text="로그인")
@@ -158,7 +160,6 @@ class LoginFrame(tk.Frame):
         UserDataManage.save_user_data(self.idpwd)
         messagebox.showinfo("Success", "회원 등록이 완료되었습니다")
         self.show_login_form()
-
 
 
 
