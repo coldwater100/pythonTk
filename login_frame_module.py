@@ -14,45 +14,45 @@ class LoginFrame(tk.Frame):
         self.configure(bg="#f0f0f0")
 
         # Login form
-        self.label_title = tk.Label(self, text="Login", font=("Nanum Gothic", 24, "bold"), bg="#f0f0f0")
+        self.label_title = tk.Label(self, text="로그인", font=("Nanum Gothic", 24, "bold"), bg="#f0f0f0")
         self.label_title.pack(pady=10)
         
-        self.label_username = tk.Label(self, text="Username:", font=("Nanum Gothic", 12), bg="#f0f0f0")
+        self.label_username = tk.Label(self, text="사용자명:", font=("Nanum Gothic", 12), bg="#f0f0f0")
         self.label_username.pack(pady=5)
         
         self.entry_username = tk.Entry(self, font=("Nanum Gothic", 12), highlightbackground="#d1d1d1", highlightthickness=1)
         self.entry_username.pack(pady=5, ipady=5, ipadx=5)
         
-        self.label_password = tk.Label(self, text="Password:", font=("Nanum Gothic", 12), bg="#f0f0f0")
+        self.label_password = tk.Label(self, text="비밀번호:", font=("Nanum Gothic", 12), bg="#f0f0f0")
         self.label_password.pack(pady=5)
         
         self.entry_password = tk.Entry(self, show='*', font=("Nanum Gothic", 12), highlightbackground="#d1d1d1", highlightthickness=1)
         self.entry_password.pack(pady=5, ipady=5, ipadx=5)
         
-        self.button_login = tk.Button(self, text="Login", font=("Nanum Gothic", 12, "bold"), bg="#4CAF50", fg="white", command=self.login)
+        self.button_login = tk.Button(self, text="로그인", font=("Nanum Gothic", 12, "bold"), bg="#4CAF50", fg="white", command=self.login)
         self.button_login.pack(pady=10, ipadx=10, ipady=5)
 
-        self.button_toggle_register = tk.Button(self, text="Register", font=("Nanum Gothic", 12, "bold"), bg="#2196F3", fg="white", command=self.show_register_form)
+        self.button_toggle_register = tk.Button(self, text="회원가입", font=("Nanum Gothic", 12, "bold"), bg="#2196F3", fg="white", command=self.show_register_form)
         self.button_toggle_register.pack(pady=10, ipadx=10, ipady=5)
 
         # Register form
-        self.label_new_username = tk.Label(self, text="New Username:", font=("Nanum Gothic", 12), bg="#f0f0f0")
+        self.label_new_username = tk.Label(self, text="사용자명:", font=("Nanum Gothic", 12), bg="#f0f0f0")
         self.entry_new_username = tk.Entry(self, font=("Nanum Gothic", 12), highlightbackground="#d1d1d1", highlightthickness=1)
         
-        self.label_new_password = tk.Label(self, text="New Password:", font=("Nanum Gothic", 12), bg="#f0f0f0")
+        self.label_new_password = tk.Label(self, text="비밀번호:", font=("Nanum Gothic", 12), bg="#f0f0f0")
         self.entry_new_password = tk.Entry(self, show='*', font=("Nanum Gothic", 12), highlightbackground="#d1d1d1", highlightthickness=1)
         
-        self.label_pages = tk.Label(self, text="Pages:", font=("Nanum Gothic", 12), bg="#f0f0f0")
+        self.label_pages = tk.Label(self, text="선호하는 페이지수:", font=("Nanum Gothic", 12), bg="#f0f0f0")
         self.entry_pages= tk.Entry(self, font=("Nanum Gothic", 12), highlightbackground="#d1d1d1", highlightthickness=1)
 
-        self.label_genres = tk.Label(self, text="Genres:", font=("Nanum Gothic", 12), bg="#f0f0f0")
+        self.label_genres = tk.Label(self, text="장르:", font=("Nanum Gothic", 12), bg="#f0f0f0")
         self.genre_combobox = ttk.Combobox(self)       # 콤보박스 생성
         self.genre_combobox.config(height=5,values=BookDatas.genres,state="readonly")           
         self.genre_combobox.set(BookDatas.genres[0])           # 맨 처음 나타낼 값 설정 
 
-        self.button_register_user = tk.Button(self, text="Register", font=("Nanum Gothic", 12, "bold"), bg="#4CAF50", fg="white", command=self.register_user)
+        self.button_register_user = tk.Button(self, text="회원가입", font=("Nanum Gothic", 12, "bold"), bg="#4CAF50", fg="white", command=self.register_user)
         
-        self.button_toggle_login = tk.Button(self, text="Back to Login", font=("Nanum Gothic", 12, "bold"), bg="#2196F3", fg="white", command=self.show_login_form)
+        self.button_toggle_login = tk.Button(self, text="로그인 화면으로 돌아가기", font=("Nanum Gothic", 12, "bold"), bg="#2196F3", fg="white", command=self.show_login_form)
 
         # 엔터 키 이벤트 바인딩
         self.entry_password.bind('<Return>', self.login_event)
@@ -75,12 +75,12 @@ class LoginFrame(tk.Frame):
                 UserDataManage.now_user=user_data
                 return
 
-        messagebox.showerror("Login Failed", "Invalid username or password")
+        messagebox.showerror("로그인 실패", "잘못된 사용자명 또는 비밀번호")
         self.entry_password.delete(0, tk.END)
 
     def show_register_form(self):
         self.clear_form()
-        self.label_title.config(text="Register")
+        self.label_title.config(text="회원가입")
         self.label_username.pack_forget()
         self.entry_username.pack_forget()
         self.label_password.pack_forget()
@@ -106,7 +106,7 @@ class LoginFrame(tk.Frame):
 
     def show_login_form(self):
         self.clear_form()
-        self.label_title.config(text="Login")
+        self.label_title.config(text="로그인")
         self.label_new_username.pack_forget()
         self.entry_new_username.pack_forget()
         self.label_new_password.pack_forget()
@@ -146,17 +146,17 @@ class LoginFrame(tk.Frame):
         new_like_length = self.entry_pages.get()
 
         if not new_username or not new_password:
-            messagebox.showerror("Error", "Username and Password cannot be empty")
+            messagebox.showerror("에러", "사용자명이나 비밀번호는 빈 문자열일 수 없습니다")
             return
 
         for user_data in self.idpwd:
             if new_username == user_data[0]:
-                messagebox.showerror("Error", "Username already exists")
+                messagebox.showerror("에러", "사용자명이 이미 존재합니다")
                 return
 
         self.idpwd.append((new_username, new_password, new_like_genre, new_like_length))
         UserDataManage.save_user_data(self.idpwd)
-        messagebox.showinfo("Success", "User registered successfully")
+        messagebox.showinfo("Success", "회원 등록이 완료되었습니다")
         self.show_login_form()
 
 

@@ -10,7 +10,7 @@ class ListBookFrame(tk.Frame):
     def create_widgets(self):
         title_frame = tk.Frame(self, bg='blue')
         title_frame.pack(pady=10, fill=tk.X)
-        title_label = tk.Label(title_frame, text="List of Books", font=("Helvetica", 16, "bold"), bg='blue', fg='white')
+        title_label = tk.Label(title_frame, text="책 목록", font=("Helvetica", 16, "bold"), bg='blue', fg='white')
         title_label.pack(padx=10, pady=10)
 
         self.canvas = tk.Canvas(self, bg='white')
@@ -38,7 +38,7 @@ class ListBookFrame(tk.Frame):
         self.book_list = new_book_list
 
         if not self.book_list:
-            no_books_label = tk.Label(self.book_frame, text="No books available.", font=("Helvetica", 12), bg='white')
+            no_books_label = tk.Label(self.book_frame, text="책 없음", font=("Helvetica", 12), bg='white')
             no_books_label.pack(fill=tk.X, padx=10, pady=5)
         else:
             for idx, (title, author, pages, genres, cover_path) in enumerate(self.book_list, start=1):
@@ -62,8 +62,8 @@ class ListBookFrame(tk.Frame):
 
     def show_book_details(self, title, author, pages, genres):
         details_window = tk.Toplevel(self)
-        details_window.title(f"Details of {title}")
+        details_window.title(f"{title} 의 세부사항")
 
-        details_label = tk.Label(details_window, text=f"Title: {title}\nAuthor: {author}\nPages: {pages}\nGenres: {genres}", font=("Helvetica", 12))
+        details_label = tk.Label(details_window, text=f"제목: {title}\n작가: {author}\n페이지: {pages}\n장르: {genres}", font=("Helvetica", 12))
         details_label.pack(padx=10, pady=10)
 

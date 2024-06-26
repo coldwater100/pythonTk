@@ -160,6 +160,7 @@ frame_list = {
 menu_frame = MenuFrame(win, view_other_frame, frame_list, relief="solid", bd=2)
 menu_frame.place(rely=0.05, relwidth=0.2, relheight=0.95)  
 
+win.title("도서관리 프로그램")
 # 윈도우 시작
 win.mainloop()
 
