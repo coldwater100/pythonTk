@@ -43,8 +43,9 @@ def update_username(new_username):
     login_state = True
     messagebox.showinfo("알림", "성공적으로 로그인 되었습니다")
     mypage_frame.update_user_data(next((user for user in UserDataManage.load_user_data() if user[0] == username), None))
-    login_button.config(bg="#D0FC5C",text="다른 계정으로 로그인")
+    login_button.config(bg="#F05650",text="로그아웃")
     view_other_frame(home_frame)
+    
 
 def suggest_book():
     pass
@@ -74,6 +75,7 @@ def add_book(new_book):
     list_books_frame.update_book_list(book_list)
     save_books()
     messagebox.showinfo("알림", "새 책이 추가 되었어요")
+    view_other_frame(list_books_frame)
 
 # 하나의 책을 삭제 한다. DeleteBookFrame의 변수로 이 함수를 넘겨 준다, 즉 DeleteBookFrame에서 실행된다.
 # 변수로 list_book_frame에서 확인 할 수 있는 index를 넘겨 준다.
@@ -85,9 +87,23 @@ def delete_book(idx):
         list_books_frame.update_book_list(book_list)
         save_books()
         messagebox.showinfo("알림", "지정한 책이 삭제 되었어요")
+        view_other_frame(list_books_frame)
     else:
         # index가 유효하지 않으면 오류 메시지
         tk.messagebox.showerror("오류", "유효한 인덱스를 입력하세요.")
+
+def login_btn_main():
+    global username
+    if username=="guest":
+        view_other_frame(login_frame)
+    else:
+        username = "guest"
+        label_user.config(text=f"Username: guest")
+        login_state = False
+        UserDataManage.now_user=[]
+        login_button.config(bg="#4CAF50",text="로그인")
+        view_other_frame(home_frame)
+        
 
 # 윈도우 생성 및 크기 지정
 win = tk.Tk()
@@ -107,7 +123,7 @@ label_user = tk.Label(username_frame, text=f"Username: {username}")
 label_user.pack(side="left", padx=10, ipadx=20, ipady=5)
 
 login_frame = LoginFrame(win, update_username, relief="solid", bd=2)
-login_button = tk.Button(username_frame, text="login", command=lambda f=login_frame: view_other_frame(f) ,bg="#4CAF50")
+login_button = tk.Button(username_frame, text="로그인", command= login_btn_main,bg="#4CAF50")
 login_button.pack(side="right", padx=10, ipadx=20, ipady=5)
 
 # 필요한 frame 들을 생성
