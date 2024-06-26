@@ -52,7 +52,7 @@ class HomeFrame(tk.Frame):
 
         # 텍스트 라벨 설정
         label_x = self.width // 2 - 100  # 텍스트 위치를 왼쪽으로 100 이동
-        self.label_title = tk.Label(self, text='도서관리 프로그램', font=("Arial", 24, "bold"), bg=box_color, fg='white')
+        self.label_title = tk.Label(self, text='도서관리 프로그램', font=("Nanum Gothic", 24, "bold"), bg=box_color, fg='white')
         self.label_title_window = self.canvas.create_window(label_x, box_y + box_height // 2, window=self.label_title, anchor="center")
 
     def play_music(self):
@@ -75,7 +75,7 @@ class HomeFrame(tk.Frame):
 
     def create_music_toggle(self):
         self.music_toggle_var = tk.BooleanVar(value=True)  # 초기값을 True로 설정 (음악 재생 중)
-        self.music_toggle = tk.Checkbutton(self, text="음악 켜기/끄기", variable=self.music_toggle_var, command=self.toggle_music, font=("Arial", 12, "bold"))
+        self.music_toggle = tk.Checkbutton(self, text="음악 켜기/끄기", variable=self.music_toggle_var, command=self.toggle_music, font=("Nanum Gothic", 12, "bold"))
         self.music_toggle_window = self.canvas.create_window(self.width - 200, 20, window=self.music_toggle, anchor="ne")
 
 

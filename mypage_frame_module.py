@@ -10,19 +10,19 @@ class MyPageFrame(tk.Frame):
         self.update_user_data(UserDataManage.now_user)
 
     def create_widgets(self):
-        self.label_title = tk.Label(self, text="마이페이지", font=("Arial", 24, "bold"), bg="#f0f0f0")
+        self.label_title = tk.Label(self, text="마이페이지", font=("Nanum Gothic", 24, "bold"), bg="#f0f0f0")
         self.label_title.pack(pady=10)
         
-        self.label_username = tk.Label(self, text="Username:", font=("Arial", 12), bg="#f0f0f0")
+        self.label_username = tk.Label(self, text="Username:", font=("Nanum Gothic", 12), bg="#f0f0f0")
         self.label_username.pack(pady=5)
 
-        self.label_password = tk.Label(self, text="Password:", font=("Arial", 12), bg="#f0f0f0")
+        self.label_password = tk.Label(self, text="Password:", font=("Nanum Gothic", 12), bg="#f0f0f0")
         self.label_password.pack(pady=5)
 
-        self.label_genre = tk.Label(self, text="좋아하는 장르:", font=("Arial", 12), bg="#f0f0f0")
+        self.label_genre = tk.Label(self, text="좋아하는 장르:", font=("Nanum Gothic", 12), bg="#f0f0f0")
         self.label_genre.pack(pady=5)
 
-        self.label_pages = tk.Label(self, text="선호하는 책의 길이:", font=("Arial", 12), bg="#f0f0f0")
+        self.label_pages = tk.Label(self, text="선호하는 책의 길이:", font=("Nanum Gothic", 12), bg="#f0f0f0")
         self.label_pages.pack(pady=5)
 
     def update_user_data(self, user_data):
